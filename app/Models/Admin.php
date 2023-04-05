@@ -9,5 +9,6 @@ use IIluminate\foundation\Auth\User as Authenticable;
 class Admin extends Model
 {
     use HasFactory;
+    protected $table = 'admin';
     protected $guard = 'admin';
 }

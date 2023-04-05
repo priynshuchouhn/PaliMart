@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('type');
             $table->integer('vendor_id');
-            $table->integer('mobile');
+            $table->bigInteger('mobile');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('image');
