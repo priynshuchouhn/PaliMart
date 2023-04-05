@@ -31,4 +31,13 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+
+// Admin Group
+    /* prefix -> admin will included before every URL, 
+    group -> is used to group all the routes with prefix of admin*/
+
+Route::prefix('admin')->group(function(){
+    Route::match(['get', 'post'], '/login', [AdminController::class,'login']);
+    Route::get('/dashboard',[AdminController::class,'dashboard']);
+});
+
