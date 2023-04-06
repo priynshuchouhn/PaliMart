@@ -37,9 +37,17 @@ require __DIR__.'/auth.php';
     group -> is used to group all the routes with prefix of admin*/
 
 Route::prefix('admin')->group(function(){
+
+    // ADmin Login Route
     Route::match(['get', 'post'], '/login', [AdminController::class,'login']);
     Route::group(['middleware'=>['admin']], function(){
+
+        // Admin DashBoard Route
         Route::get('/dashboard',[AdminController::class,'dashboard']);
+        ROute::match(['get','post'],'update-password',[AdminController::class,'updatePassword']);
+        ROute::match(['get','post'],'update-details',[AdminController::class,'updateDetails']);
+        ROute::post('check-admin-password',[AdminController::class,'CheckAdminPassword']);
+        // Admin Logout Route
         Route::get('/logout',[AdminController::class,'logout']);
     });
 });
