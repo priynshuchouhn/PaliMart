@@ -54,29 +54,24 @@
                               <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputUsername1">Email Address</label>
-                                    <input class="form-control" readonly value="{{ $adminDetails['email'] }}">
+                                    <input class="form-control" readonly value="{{ Auth::guard('admin')->user()->email }}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputEmail1">Admin Type</label>
-                                    <input class="form-control" readonly value="{{ $adminDetails['type'] }}">
+                                    <input class="form-control" readonly value="{{ Auth::guard('admin')->user()->type }}">
                                 </div>
                               </div>
                               <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label for="exampleInputPassword1">Current Password</label>
-                                    <input type="password" class="form-control" 
-                                        placeholder="Enter Current Password" name="current_password" id="current_password">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputPassword1">Name</label>
+                                    <input type="text" class="form-control" value="{{ Auth::guard('admin')->user()->name }}"
+                                        placeholder="Enter New Name" name="name" id="name">
                                         <span id="password_error"></span>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="exampleInputConfirmPassword1">New Password</label>
-                                    <input type="password" class="form-control" 
-                                        placeholder="Enter New Password" name="new_password">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="exampleInputConfirmPassword1">Confirm New Password</label>
-                                    <input type="password" class="form-control" 
-                                        placeholder="Confirm Password" name="confirm_password">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputConfirmPassword1">Mobile Number</label>
+                                    <input type="text" class="form-control" value="{{ Auth::guard('admin')->user()->mobile}}"
+                                        placeholder="Enter New Mobile Number" name="mobile_number">
                                 </div>
                               </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>

@@ -52,7 +52,22 @@ class AdminController extends Controller
     }
 
     // Admin Update Password Function 
-    public function updatePassword(){
+    public function updatePassword(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
+            if(Hash::check($data['current_password'], Auth::guard('admin')->user()->password)){
+                if($data['new_password']==$data['confirm_password']){
+                    Admin::where('id', Auth::guard('admin')->user()->id)->update(['password'=>bcrypt($data['new_password'])]);
+                    return redirect()->back()->with('success_message','Password Updated Successfully!');
+                }else{
+                    return redirect()->back()->with('error_message','New Password and Confirm Password Does Not Match!');
+                }
+                
+            }else{
+                return redirect()->back()->with('error_message','Current Password Does Not Match!');
+            }
+            
+        }
         $adminDetails = Admin::where('email',Auth::guard('admin')->user()->email)->first()->toArray();
         return view('admin.settings.update_admin_password')->with(compact('adminDetails'));
         
@@ -60,6 +75,8 @@ class AdminController extends Controller
     // Admin Update Details Function 
     public function updateDetails(){
 
+    return view('admin.settings.update_admin_details');
+        
     }
     // Check Admin Password Function 
     public function CheckAdminPassword(Request $request){
