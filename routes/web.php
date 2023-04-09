@@ -38,7 +38,7 @@ require __DIR__.'/auth.php';
 
 Route::prefix('admin')->group(function(){
 
-    // ADmin Login Route
+    // Admin Login Route
     Route::match(['get', 'post'], '/login', [AdminController::class,'login']);
     Route::group(['middleware'=>['admin']], function(){
 

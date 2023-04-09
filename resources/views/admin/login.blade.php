@@ -33,7 +33,7 @@
               <h6 class="font-weight-light">Sign in to continue.</h6>
               @if (Session::has('error_message'))
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error:</strong> {{ SessIon::get('error_message') }}
+                <strong>Error:</strong> {{ Session::get('error_message') }}
                 {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
               </div>
               @endif
