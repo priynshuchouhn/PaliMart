@@ -50,7 +50,16 @@
                               {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
                             </div>
                             @endif
-                            <form class="forms-sample" action="{{ url('admin/update-password') }}" method="post">@csrf
+                            @if($errors->any())           
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form class="forms-sample" action="{{ url('admin/update-details') }}" method="post">@csrf
                               <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputUsername1">Email Address</label>
@@ -71,7 +80,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="exampleInputConfirmPassword1">Mobile Number</label>
                                     <input type="text" class="form-control" value="{{ Auth::guard('admin')->user()->mobile}}"
-                                        placeholder="Enter New Mobile Number" name="mobile_number">
+                                        placeholder="Enter New Mobile Number" name="mobile">
                                 </div>
                               </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>

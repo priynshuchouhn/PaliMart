@@ -37,7 +37,7 @@
                 {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
               </div>
               @endif
-              @if ($errors->any())           
+              @if($errors->any())           
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                       <ul>
                           @foreach ($errors->all() as $error)
@@ -48,7 +48,7 @@
               @endif
               <form class="pt-3" action="{{ url('/admin/login') }}" method="post">@csrf
                 <div class="form-group">
-                  <input type="text" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" >
+                  <input type="text" name="email" class="form-control form-control-lg" value="{{ old('email') }}" id="exampleInputEmail1" placeholder="Username" >
                 </div>
                 <div class="form-group">
                   <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">

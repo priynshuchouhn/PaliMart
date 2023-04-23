@@ -73,8 +73,26 @@ class AdminController extends Controller
         
     }
     // Admin Update Details Function 
-    public function updateDetails(){
+    public function updateDetails(Request $request){
+        if($request->isMethod('post')){
+            $data = $request->all();
 
+            $rules = [
+                'name' => 'required',
+                'mobile' => 'required|numeric' 
+            ];
+            $message = [
+                'name.required' => 'Name is Required!',
+                // 'name.regex' => 'Enter a valid name!',
+                'mobile.required' => 'Mobile number is Required!',
+                'mobile.numeric' => 'Enter valid Mobile number!',
+
+            ];
+            $this->validate($request,$rules,$message); 
+            Admin::where('id',Auth::guard('admin')->user()->id)->update(['name'=>$data['name'],'mobile'=>$data['mobile']]);
+            // dd($data);
+            return redirect()->back()->with('success_message','Details Updated Successfully!');
+        }
     return view('admin.settings.update_admin_details');
         
     }
