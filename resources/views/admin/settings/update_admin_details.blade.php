@@ -34,24 +34,24 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Update Password</h4>
+                            <h4 class="card-title">Update Details</h4>
                             <p class="card-description">
-                               Change your Password
+                                Change your Details
                             </p>
                             @if (Session::has('error_message'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                              <strong>Error:</strong> {{ SessIon::get('error_message') }}
-                              {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
-                            </div>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Error:</strong> {{ SessIon::get('error_message') }}
+                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+                                </div>
                             @endif
                             @if (Session::has('success_message'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                              <strong>Success:</strong> {{ SessIon::get('success_message') }}
-                              {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
-                            </div>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>Success:</strong> {{ SessIon::get('success_message') }}
+                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+                                </div>
                             @endif
-                            @if($errors->any())           
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @if ($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <ul>
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -59,30 +59,43 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form class="forms-sample" action="{{ url('admin/update-details') }}" method="post">@csrf
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputUsername1">Email Address</label>
-                                    <input class="form-control" readonly value="{{ Auth::guard('admin')->user()->email }}">
+                            <form class="forms-sample" action="{{ url('admin/update-details') }}" method="post" enctype="multipart/form-data">@csrf
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputUsername1">Email Address</label>
+                                        <input class="form-control" readonly
+                                            value="{{ Auth::guard('admin')->user()->email }}">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputEmail1">Admin Type</label>
+                                        <input class="form-control" readonly
+                                            value="{{ Auth::guard('admin')->user()->type }}">
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Admin Type</label>
-                                    <input class="form-control" readonly value="{{ Auth::guard('admin')->user()->type }}">
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputPassword1">Name</label>
-                                    <input type="text" class="form-control" value="{{ Auth::guard('admin')->user()->name }}"
-                                        placeholder="Enter New Name" name="name" id="name">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputPassword1">Name</label>
+                                        <input type="text" class="form-control"
+                                            value="{{ Auth::guard('admin')->user()->name }}" placeholder="Enter New Name"
+                                            name="name" id="name">
                                         <span id="password_error"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="exampleInputConfirmPassword1">Mobile Number</label>
+                                        <input type="text" class="form-control"
+                                            value="{{ Auth::guard('admin')->user()->mobile }}"
+                                            placeholder="Enter New Mobile Number" name="mobile">
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputConfirmPassword1">Mobile Number</label>
-                                    <input type="text" class="form-control" value="{{ Auth::guard('admin')->user()->mobile}}"
-                                        placeholder="Enter New Mobile Number" name="mobile">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="image">Image</label>
+                                        <input type="file" class="form-control" name="image">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}" target="_blank"><img src="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}" width="100" alt=""></a>
+                                    </div>
                                 </div>
-                              </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 <button class="btn btn-light">Cancel</button>
                             </form>

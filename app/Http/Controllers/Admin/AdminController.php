@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 
 class AdminController extends Controller
@@ -29,6 +30,8 @@ class AdminController extends Controller
             ];
 
             $this->validate($request,$rules,$customMessage);
+
+           
 
             if(Auth::guard('admin')->attempt(['email' => $data['email'], 'password' => $data['password'],'status'=>1]))
                { return redirect('admin/dashboard');}
@@ -89,7 +92,21 @@ class AdminController extends Controller
 
             ];
             $this->validate($request,$rules,$message); 
-            Admin::where('id',Auth::guard('admin')->user()->id)->update(['name'=>$data['name'],'mobile'=>$data['mobile']]);
+
+            if($request->hasFile('image')){
+                $image_tmp = $request->file('image');
+                if($image_tmp->isValid()){
+                    // Get image Extenstion 
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    // Generate New Image Name
+                    $image_name = rand(111,9999).'.'.$extension;
+                    $image_path = 'admin/images/photos/'.$image_name;
+                    //  Upload Image
+                    Image::make($image_tmp)->save($image_path);
+                }
+            }
+
+            Admin::where('id',Auth::guard('admin')->user()->id)->update(['name'=>$data['name'],'mobile'=>$data['mobile'], 'image' => $image_name]);
             // dd($data);
             return redirect()->back()->with('success_message','Details Updated Successfully!');
         }
