@@ -92,9 +92,12 @@
                                         <label for="image">Image</label>
                                         <input type="file" class="form-control" name="image">
                                     </div>
+                                    @if (!empty(Auth::guard('admin')->user()->image))
                                     <div class="col-md-6">
                                         <a href="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}" target="_blank"><img src="{{ url('admin/images/photos/'.Auth::guard('admin')->user()->image) }}" width="100" alt=""></a>
                                     </div>
+                                    <input type="hidden" name="current_image" value="{{ Auth::guard('admin')->user()->image }}">
+                                    @endif
                                 </div>
                                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                 <button class="btn btn-light">Cancel</button>

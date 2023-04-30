@@ -104,6 +104,10 @@ class AdminController extends Controller
                     //  Upload Image
                     Image::make($image_tmp)->save($image_path);
                 }
+            }else if(!empty($data['current_image'])){
+                $image_name = $data['current_image'];
+            }else{
+                $image_name = "";
             }
 
             Admin::where('id',Auth::guard('admin')->user()->id)->update(['name'=>$data['name'],'mobile'=>$data['mobile'], 'image' => $image_name]);
